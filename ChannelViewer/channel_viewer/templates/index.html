@@ -1,6 +1,27 @@
-<html>
-<title>Public Channel Viewer</title>
-<body>
-Hello, {{name}} 
-</body>
+﻿<html>
+{% extends "base_navbar.html" %}
+{% block content %}
+{% load static %}
+<div>
+<br>
+<br>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-md-4"><img src="{% static 'images/telegram_logo.png' %}" alt="telegram" height="400" width="400" margin="50px 50px"></div>
+  <div class="col-md-5">
+  
+      <main role="main" class="container">
+      <div class="jumbotron">
+        <h1>Public Channel Viewer</h1>
+        <p class="lead">Приложение для просмотра публичных каналов Telegram незарегистрированными пользователями</p>
+        <a class="btn btn-lg btn-primary" href="#" role="button">Читать канал &raquo;</a>
+      </div>
+	<div class="col-sm-2"></div>
+    </main>
+  </div>
+  
+</div>
+</div>
+{% endblock %}
 </html>
