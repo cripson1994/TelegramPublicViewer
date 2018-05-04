@@ -16,10 +16,12 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def channel_posts(request: HttpRequest) -> HttpResponse:
 	#list = app.getUrl()
+	name = 'Юмор от Влада @Vlad_MDK'
 	api_class = ApiClass()
-	api_class.get_posts = MagicMock(return_value=['Бублик или претцель? Тест Медузы и Pomsticks о еде, которую можно есть на ходу'])
+	
+	api_class.get_posts = MagicMock(return_value=[{'img':"/static/msg_images/cat.jpg",'text':'Завтра в связи с известными обстоятельствами непреодолимой силы занятий не будет. 03.05 занятий тоже не будет, поскольку у вас devdays. 10.05 будет практика вместо лекции. 17.05 и 24.05 - все в соответствии с расписанием.', 'date':'04.05.18 15:17'}, {'img':"/static/msg_images/jap.jpg",'text':'Бублик или претцель? Тест Медузы и Pomsticks о еде, которую можно есть на ходу', 'date':'04.05.18 15:17'}])
 	list = api_class.get_posts()
-	return render_to_response('view_posts.html', {'list': list})
+	return render_to_response('view_posts.html', {'list': list, 'channel_name':name})
 	
 def login(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
@@ -49,3 +51,4 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+	
