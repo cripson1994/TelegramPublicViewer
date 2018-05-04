@@ -18,3 +18,6 @@ def channel_posts(request: HttpRequest) -> HttpResponse:
 	api_class.get_posts = MagicMock(return_value=['Бублик или претцель? Тест Медузы и Pomsticks о еде, которую можно есть на ходу'])
 	list = api_class.get_posts()
 	return render_to_response('view_posts.html', {'list': list})
+	
+def login(request: HttpRequest) -> HttpResponse:
+    return render_to_response('signin.html')
