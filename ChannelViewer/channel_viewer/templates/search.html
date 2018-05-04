@@ -1,0 +1,74 @@
+﻿{% extends "base_navbar.html" %}
+{% block content %}
+<title>Channels</title>
+<style>
+ul
+{
+list-style-type: none;
+}
+</style
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container">
+<div class="jumbotron">
+
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+<form class="form-inline" action="/search/" method="post" >
+
+ <img src="/static/images/1.png" alt="telegram" height="42" width="42">
+ <div class="col-sm-4">
+
+  <label class="sr-only" for="inlineFormInputGroup">Username</label>
+  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+    <input type="text" name="name" class="form-control" id="inlineFormInputGroup" placeholder="Название канала">
+  </div>
+</div>
+ 
+  <button type="submit" class="btn btn-primary"> Читать! </button>
+  <div class="col-sm-1"></div>
+  <div class="col-sm-5">
+  <h4>Популярные каналы</h4>
+<ul class="list-group">
+  <li ><a href="#">MDK</a></li>
+  <li ><a href="#">Юмор от Влада</a></li>
+  <li ><a href="#">Math Logic</a></li>
+</ul>
+  
+  </div>
+</form>
+</div>
+</div>
+<div class="row">
+
+<div class="col-sm-6">
+<h4>Новые каналы</h4>
+<ul>
+<li>Test</li>
+
+{% for m in new_list %}
+	<li><a href="../view_posts/{{ m.id }}"</a></li>
+<br>
+{% endfor %} 
+
+</ul>
+</div>
+<div class="col-sm-2">
+<h4>Мои каналы</h4>
+<ul>
+<li>Test</li>
+
+{% for m in my_list %}
+	<li><a href="../view_posts/{{ m.id }}"</a></li>
+<br>
+{% endfor %} 
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+</html>
