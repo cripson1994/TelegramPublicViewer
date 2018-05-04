@@ -1,8 +1,38 @@
-{% extends "base_navbar.html" %}
+﻿{% extends "base_navbar.html" %}
 {% block content %}
 <title>Posts</title>
-<body>
-{{list}} 
+<style>
+ul
+{
+list-style-type: none;
+}
+
+.label-info 
+{
+background-color: #55b5df;
+}
+</style
+
+
+  <body>
+<div class="container">
+<div class="jumbotron">
+<div align="center"><h3>{{channel_name}}</h3></div>
+<br>
+{% for m in list %}
+    <div align="right"><span class="label label-info">{{ m.date|default_if_none:"" }}</span></div>
+		{% if m.img %}
+	<div><img src="{{ m.img}}"></img></div>
+	{% endif %}
+	<br>
+	<br>
+	<div>{{ m.text|default_if_none:"" }}</div>
+<br>
+{% endfor %} 
+<video width="320" height="240" controls>
+  <source src="/static/msg_videos/jap.mpeg4" type="video/mp4">
+</video>
+</div>
 </body>
 {% endblock %}
 </html>
