@@ -25,10 +25,14 @@ def login(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         #form = UserLoginForm(request.POST)
         username = request.POST.get('username', '')
+        print(username)
         password = request.POST.get('password', '')
+        print(password)
         user = authenticate(username=username, password=password)
-        login(request.user.is_authenticated())
-        return redirect('/view_posts')
+        if user is not None:
+            return redirect('/view_posts')
+        else:
+            return redirect('/')
 
     return render_to_response('signin.html')
 
