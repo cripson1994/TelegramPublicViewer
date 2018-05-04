@@ -52,3 +52,10 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 	
+def search(request: HttpRequest) -> HttpResponse:
+    print('llll')
+    if request.method == 'POST':
+	    print('llll')
+	    return redirect('/view_posts/'+request.POST.get('name'))    
+    return render_to_response('search.html')
+	
