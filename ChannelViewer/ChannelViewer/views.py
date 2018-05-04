@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render_to_response, redirect, render
 from unittest.mock import MagicMock
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 class ApiClass:
@@ -22,6 +22,14 @@ def channel_posts(request: HttpRequest) -> HttpResponse:
 	return render_to_response('view_posts.html', {'list': list})
 	
 def login(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        #form = UserLoginForm(request.POST)
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        user = authenticate(username=username, password=password)
+        login(request.user.is_authenticated())
+        return redirect('/view_posts')
+
     return render_to_response('signin.html')
 
 def signup(request):
