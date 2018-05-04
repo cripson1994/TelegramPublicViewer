@@ -12,8 +12,8 @@ urlpatterns = [
     url(r'^channel_viewer/', include('channel_viewer.urls')),
   	url(r'^view_posts/$', views.channel_posts, name='channel_posts'),
     url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^$', views.index, name='index'),
-    #url(r'^admin/', include(admin.site.urls)),
     url(r'^404/$', page_not_found, {'exception ': Exception()}),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
