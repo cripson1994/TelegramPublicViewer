@@ -11,28 +11,236 @@ list-style-type: none;
 {
 background-color: #55b5df;
 }
+.timeline {
+    position: relative;
+    padding: 21px 0px 10px;
+    margin-top: 4px;
+    margin-bottom: 30px;
+}
+
+.timeline .line {
+    position: absolute;
+    width: 4px;
+    display: block;
+    background: currentColor;
+    top: 0px;
+    bottom: 0px;
+    margin-left: 30px;
+}
+
+.timeline .separator {
+    border-top: 1px solid currentColor;
+    padding: 5px;
+    padding-left: 40px;
+    font-style: italic;
+    font-size: .9em;
+    margin-left: 30px;
+}
+
+.timeline .line::before { top: -4px; }
+.timeline .line::after { bottom: -4px; }
+.timeline .line::before,
+.timeline .line::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    width: 12px;
+    height: 12px;
+    display: block;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.timeline .panel {
+    position: relative;
+    margin: 10px 0px 21px 70px;
+    clear: both;
+}
+
+.timeline .panel::before {
+    position: absolute;
+    display: block;
+    top: 8px;
+    left: -24px;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: inherit;
+    border-width: 12px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+
+.timeline .panel .panel-heading.icon * { font-size: 20px; vertical-align: middle; line-height: 40px; }
+.timeline .panel .panel-heading.icon {
+    position: absolute;
+    left: -59px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+}
+
+.timeline .panel-outline {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+.timeline .panel-outline .panel-body {
+    padding: 10px 0px;
+}
+
+.timeline .panel-outline .panel-heading:not(.icon),
+.timeline .panel-outline .panel-footer {
+    display: none;
+	
+
+}
+.timeline	.panel-text .panel-body {
+background:#98cce4;
+}
+.panel-hh {
+color:#55b5df
+}
+
+.like-ref {
+color:#789a29;
+
+}
+a:link {
+    color: black;
+}
+
+a:hover {
+    color: #789a29;
+}
+
+
 </style
 
 
   <body>
-<div class="container">
-<div class="jumbotron">
-<div align="center"><h3>{{channel_name}}</h3></div>
-<br>
+  <div class="container">
+   <br>
+    <!-- Page header -->
+    <div class="page-header">
+        <b><h2 class="display-4">@{{channel_name}}</h2></b>
+    </div>
+    <!-- /Page header -->
+
+    <!-- Timeline -->
+    <div class="timeline">
+    
+        <!-- Line component -->
+        <div class="line text-muted"></div>
+		
+		        <!-- Panel -->
+        <article class="panel panel-danger panel-outline">
+
+            
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <img src="/static/images/heart.png" width="42" height="42"></img>
+            </div>
+            <!-- /Icon -->
+			
+			<div class="panel-heading panel-text">
+                
+            </div>
+    
+            <!-- Body -->
+            <div class="panel-body">
+			<a href="#" > Добавить <span class="like-ref" >{{channel_name}}</span> в список избранных каналов  </a>
+			
+            </div>
+            <!-- /Body -->
+    
+        </article>	
+		
+		
 {% for m in list %}
-    <div align="right"><span class="label label-info">{{ m.date|default_if_none:"" }}</span></div>
+        <!-- Separator -->
+        <div class="separator text-muted">
+           <div align="right"><span class="label ">{{ m.date|default_if_none:"" }}</span></div>
+        </div>
+        <!-- /Separator -->
+    
+        <!-- Panel -->
 		{% if m.img %}
-	<div><img src="{{ m.img}}"></img></div>
-	{% endif %}
-	<br>
-	<br>
-	<div>{{ m.text|default_if_none:"" }}</div>
-<br>
-{% endfor %} 
-<video width="320" height="240" controls>
-  <source src="/static/msg_videos/jap.mpeg4" type="video/mp4">
-</video>
+        <article class="panel panel-danger panel-outline">
+    
+            <!-- Icon -->
+            <div class="panel-heading icon">
+			<img src="/static/images/img.png" width="42" height="42"></img>
+            </div>
+            <!-- /Icon -->
+    
+            <!-- Body -->
+            <div class="panel-body">
+					
+	<div><img class="img-responsive img-rounded" src="{{ m.img}}"></img></div>
+	
+            </div>
+            <!-- /Body -->
+    
+        </article>
+		{% endif %}
+		
+		
+		 <!-- Second Panel -->
+		 		{% if m.text %}
+		
+		        <article class="panel panel-success">   
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <img src="/static/images/telegram_logo.png" width="42" height="42"></img>
+            </div>
+            <!-- /Icon -->
+			<div class="panel-heading panel-text">
+                <h6 class="panel-title panel-hh">{{channel_name}}</h6>
+            </div>
+    
+            <!-- Body -->
+            <div class="panel-body ">
+                <div>{{ m.text|default_if_none:"" }}</div>
+            </div>
+            <!-- /Body -->
+    
+        </article>
+		
+		{% endif %}
+        <!-- /Panel -->
+    {% endfor %} 
+     
+        <!-- Panel -->
+        <article class="panel panel-info panel-outline">
+            
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <img src="/static/images/up.png" width="42" height="42"></img>
+            </div>
+            <!-- /Icon -->
+    
+            <!-- Body -->
+            <div class="panel-body">
+                Наверх
+            </div>
+            <!-- /Body -->
+    
+        </article>	 
+    
+    </div>
+    <!-- /Timeline -->
+
 </div>
+
+ <!-- /Timeline -->
+
 </body>
 {% endblock %}
 </html>
