@@ -9,8 +9,18 @@ import datetime
 import uuid
 
 #proxy={'hostname' : "xpesg.reconnect.rocks", 'port' : 443, 'username' : "telegram", 'password' : "telegram"}
+channels = {}
 
 class TelegramInterface():
+    bot = Client(session_name="512359488:AAE-nI5KZP9_VN_uujkhB3ar-SrHzSAKKxk",
+        api_id=284949,
+        api_hash="809d58e845cfee7ad5e1bd7b6722df05",
+        proxy={'hostname' : "uorxo.reconnect.rocks", 'port' : 443, 'username' : "telegram", 'password' : "telegram"})
+
+    user = Client(session_name="CV112",
+        api_id=284949,
+        api_hash="809d58e845cfee7ad5e1bd7b6722df05",
+        proxy={'hostname' : "uorxo.reconnect.rocks", 'port' : 443, 'username' : "telegram", 'password' : "telegram"})
 
     ids = []
     def __init__(self):
@@ -34,19 +44,22 @@ class TelegramInterface():
         return history
 
     def getMessages(self, id):
+        if id in channels.keys():
+            return channels[id]
         if id not in self.ids:
             raise ValueError
         history = self.getLastMessage(id)
         res = []
         for t in history:
             dct = {}
-            if type(t.media) == MessageMediaDocument:
+            if hasattr(t, 'media') and type(t.media) == MessageMediaDocument:
                 continue
-            dct['text'] = t.message
+            if hasattr(t,'message'):
+                dct['text'] = t.message
             dct['date'] = datetime.datetime.fromtimestamp(
                         t.date
                         ).strftime('%Y-%m-%d %H:%M:%S')
-            if type(t.media) == MessageMediaPhoto:
+            if hasattr(t, 'media') and type(t.media) == MessageMediaPhoto:
                 tmp = t.media.photo.sizes[1]
                 s = 0
                 b = b''
@@ -64,6 +77,7 @@ class TelegramInterface():
                 fh.close()
                 dct['img'] = "/static/msg_images/" + unique_filename + ".jpg"
             res.append(dct)
+        channels[id] = res
         return res
 
     def start(self):
@@ -83,6 +97,7 @@ def echo(client, message):
         if res not in a.ids:
             a.ids.append(res)
 
+    res = "http://127.0.0.1:8000/view_posts/" + res + "/"
     client.send_message(
         message.chat.id, res
     )

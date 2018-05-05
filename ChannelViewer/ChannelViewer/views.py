@@ -21,8 +21,9 @@ def channel_posts(request, ch_name=''):
     #name = 'shved_tvoego_okna'
     #name = request.GET.get('ch_name')
     api_class = ApiClass()
-    list = ChannelViewer.TetlgBackEnd.a.getMessages('mudak')
-    print(list)
+    #list = ChannelViewer.TetlgBackEnd.a.getMessages(ch_name)
+    print(ch_name)
+    list = ChannelViewer.TetlgBackEnd.a.getMessages(ch_name)
     return render_to_response('view_posts.html', {'list': list, 'channel_name':ch_name})
     
 def login(request: HttpRequest) -> HttpResponse:
