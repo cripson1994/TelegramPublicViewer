@@ -6,9 +6,10 @@ from unittest.mock import MagicMock
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from channel_viewer.models import Channel
+import ChannelViewer.TetlgBackEnd
 
 class ApiClass:
-	pass
+    pass
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -16,15 +17,14 @@ def index(request: HttpRequest) -> HttpResponse:
     return render_to_response('index.html', {'name': name})
 
 def channel_posts(request, ch_name=''):
-	#list = app.getUrl()
-	#name = 'shved_tvoego_okna'
-	#name = request.GET.get('ch_name')
-	api_class = ApiClass()
-	
-	api_class.get_posts = MagicMock(return_value=[{'text':'Пока рассказы про то, что тут не принять на душу – не правда. В магазинах продаётся некрепкий алкоголь, а в пабах (не скажу, что их меньше, чем в Петербурге) можно выбрать из приличного ассортимента всё, что душе угодно. Только хорошее пиво стоит 100 крон (примерно 700 ₽) за пинту - особо не разгуляешься. С курильщиками ситуация такая же, как и у нас: их не то чтобы много, но они есть.', 'date':'04.05.18 15:17'},{'img':"/static/msg_images/cat.jpg",'text':'Завтра в связи с известными обстоятельствами непреодолимой силы занятий не будет. 03.05 занятий тоже не будет, поскольку у вас devdays. 10.05 будет практика вместо лекции. 17.05 и 24.05 - все в соответствии с расписанием.', 'date':'04.05.18 15:17'}, {'img':"/static/msg_images/jap.jpg",'text':'Бублик или претцель? Тест Медузы и Pomsticks о еде, которую можно есть на ходу', 'date':'04.05.18 15:17'}])
-	list = api_class.get_posts()
-	return render_to_response('view_posts.html', {'list': list, 'channel_name':ch_name})
-	
+    #list = app.getUrl()
+    #name = 'shved_tvoego_okna'
+    #name = request.GET.get('ch_name')
+    api_class = ApiClass()
+    list = ChannelViewer.TetlgBackEnd.a.getMessages('mudak')
+    print(list)
+    return render_to_response('view_posts.html', {'list': list, 'channel_name':ch_name})
+    
 def login(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         #form = UserLoginForm(request.POST)
@@ -53,15 +53,19 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
-	
+    
 def search(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-	    return redirect('/view_posts/'+request.POST.get('name'))  
+        return redirect('/view_posts/'+request.POST.get('name'))  
     last_ten = Channel.objects.all().order_by('-id')[:10]
     last_ten_in_ascending_order = reversed(last_ten)
     return render_to_response('search.html', {'new_list':last_ten})
-	
+    
 def create_example(request):
     t = Channel(name = 'test_channel')
     t.save()
-    return render_to_response('search.html', {'new_list':last_ten})	
+    return render_to_response('search.html', {'new_list':last_ten}) 
+
+
+
+print("ok")
