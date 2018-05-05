@@ -46,8 +46,10 @@ list-style-type: none;
 <div class="col-sm-6">
 <h4>Новые каналы</h4>
 <ul>
+<li>Test</li>
+
 {% for m in new_list %}
-	<li><a href="../view_posts/{{ m.name }}">{{ m.name }}</a></li>
+	<li><a href="../view_posts/{{ m.id }}"</a></li>
 <br>
 {% endfor %} 
 
@@ -56,9 +58,11 @@ list-style-type: none;
 <div class="col-sm-2">
 <h4>Мои каналы</h4>
 <ul>
+<li>Test</li>
 
 {% for m in my_list %}
-	<li><a href="../view_posts/{{ m.name }}"</a>{{ m.name }}</li>
+	<li><a href="../view_posts/{{ m.id }}"</a></li>
+<br>
 {% endfor %} 
 </ul>
 </div>
