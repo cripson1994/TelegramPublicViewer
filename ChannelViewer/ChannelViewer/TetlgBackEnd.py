@@ -12,16 +12,6 @@ import uuid
 channels = {}
 
 class TelegramInterface():
-    bot = Client(session_name="512359488:AAE-nI5KZP9_VN_uujkhB3ar-SrHzSAKKxk",
-        api_id=284949,
-        api_hash="809d58e845cfee7ad5e1bd7b6722df05",
-        proxy={'hostname' : "uorxo.reconnect.rocks", 'port' : 443, 'username' : "telegram", 'password' : "telegram"})
-
-    user = Client(session_name="CV112",
-        api_id=284949,
-        api_hash="809d58e845cfee7ad5e1bd7b6722df05",
-        proxy={'hostname' : "uorxo.reconnect.rocks", 'port' : 443, 'username' : "telegram", 'password' : "telegram"})
-
     ids = []
     def __init__(self):
         pass
