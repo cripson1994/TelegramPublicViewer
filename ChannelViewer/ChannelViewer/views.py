@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, redirect, render
 from unittest.mock import MagicMock
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from channel_viewer.models import Channel
+from channel_viewer.models import Channel, UserChannels
 
 class ApiClass:
 	pass
@@ -65,3 +65,16 @@ def create_example(request):
     t = Channel(name = 'test_channel')
     t.save()
     return render_to_response('search.html', {'new_list':last_ten})	
+	
+def add_to_favourites(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            ch_name = request.POST.get('ch_name', '')
+            my_channels = UserChannels.objects.filter(userchannels__userid = request.user.id)
+            print(my_channels)
+            #new_record = UserChannels(channelid = ch_name, userid = request.user.id)
+            #new_record.save()
+            return redirect('/login/')
+        else:
+            return redirect('/login/')
+	

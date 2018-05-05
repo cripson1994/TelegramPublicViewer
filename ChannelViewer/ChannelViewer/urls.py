@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^$', views.index, name='index'), 
     url(r'^signup/$', views.signup, name='signup'),
+	url(r'^add_favourites/$', views.add_to_favourites, name='signup'),
+	url(r'^signin/$', views.login, name='login'),
     url(r'^404/$', page_not_found, {'exception ': Exception()}),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

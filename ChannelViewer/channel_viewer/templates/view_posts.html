@@ -124,6 +124,8 @@ a:hover {
 </style
 
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
   <body>
   <div class="container">
    <br>
@@ -155,7 +157,7 @@ a:hover {
     
             <!-- Body -->
             <div class="panel-body">
-			<a href="#" > Добавить <span class="like-ref" >{{channel_name}}</span> в список избранных каналов  </a>
+			<a href="#" id="favourite" > Добавить <span class="like-ref" >{{channel_name}}</span> в список избранных каналов  </a>
 			
             </div>
             <!-- /Body -->
@@ -242,5 +244,20 @@ a:hover {
  <!-- /Timeline -->
 
 </body>
+
+<script>
+$( "#favourite" ).click(function() {
+  $.ajax({
+  type: "POST",
+  url: '/add_favourites/',
+  data: {'ch_name':'{{channel_name}}'},
+  //success: success,
+  //dataType: dataType
+});
+});
+
+
+
+</script>
 {% endblock %}
 </html>
